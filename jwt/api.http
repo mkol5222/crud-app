@@ -1,0 +1,42 @@
+# use in VScode with https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+@server = http://localhost:3000
+
+@user1 = acko
+@pass1 = secret
+
+@user2 = guru
+@pass2 = please
+
+###
+#
+# Login
+# @name loginRequest
+#
+POST {{server}}/login
+Content-Type: application/json
+
+{
+    "username": "{{user2}}",
+    "password": "{{pass2}}"
+}
+
+
+
+###
+#
+# Me - my user profile
+#
+
+@authToken = {{loginRequest.response.body.token}}
+GET {{server}}/api/me
+Authorization: Bearer {{authToken}}
+
+###
+#
+# List posts
+#
+
+@authToken = {{loginRequest.response.body.token}}
+GET {{server}}/api/protectedPosts
+Authorization: Bearer {{authToken}}
